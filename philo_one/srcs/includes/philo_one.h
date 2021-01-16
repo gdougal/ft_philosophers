@@ -26,20 +26,27 @@
 #define T_SLEEP	3
 #define T_MST_E	4
 
-typedef struct		s__part_ph
+typedef struct		s_info
 {
-	int				name;
-	int				t_start;
-	int				life;
-}					t_part_ph;
+	int				death;
+	pthread_mutex_t	*forks;
+	int				rules[5];
+}					t_info;
 
 typedef struct		s_philo
 {
-	t_part_ph		*chg_able;
-	int				info[5];
+	int				name;
+	int				t_start;
+	pthread_t		th;
+	ssize_t			last_eat;
+	t_info			*info;
 }					t_philo;
 
+int					philo_pars(char **argv, int argc, t_info *info);
 int					ft_atoi(const char *nptr);
+ssize_t 			time_start(void);
 long int			current_time(t_philo *philo);
+void				init_philo(t_part_ph **phil, int i);
+
 
 #endif

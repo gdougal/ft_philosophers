@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putsrt.c                                        :+:      :+:    :+:   */
+/*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 15:49:44 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/15 15:49:46 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/16 14:15:32 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/16 14:15:33 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void ft_putsrt(char *str)
+#include "philo_one.h"
+
+void	init_philo(t_philo **phd, int i, t_info *info)
 {
-	
+	phd[i]->name = i + 1;
+	phd[i]->t_start = time_start();
+	phd[i]->info = info;
 }

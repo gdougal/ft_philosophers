@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_pars.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/16 14:14:00 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/16 14:14:03 by gdougal          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo_one.h"
+
+static int		data_mainer(t_info *info, char *argv, int i)
+{
+	info->rules[i] = ft_atoi(argv);
+	if (info->rules[i] < 1)
+		return (1);
+	return (0);
+}
+
+int		philo_pars(char **argv, int argc, t_info *info)
+{
+	int	i;
+	int f;
+	if (argc < 4 || argc > 5)
+		return (1);
+	if (argc < 5)
+		info->rules[T_MST_E] = -1;
+	i = 0;
+	f = 0;
+	while (argv[++i])
+		f = data_mainer(info, argv[i], i - 1);
+	if (f != 0)
+		return (1);
+	info->forks = malloc((info->rules[SUM_PH] - 1) * sizeof(pthread_mutex_t));
+	info->death = 0;
+	return (0);
+}

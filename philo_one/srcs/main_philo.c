@@ -12,38 +12,39 @@
 
 #include "philo_one.h"
 
-int data_mainer(t_philo *philo, char *argv, int i)
+void	lifecycle(t_philo *philo)
 {
-	philo->info[i] = ft_atoi(argv);
-	if (philo->info[i] < 1)
-		return (1);
-	return (0);
+	if (philo->chg_able->name)
+	while (!philo->death)
+	{
+		usleep(10000);
+
+	}
 }
 
-int philo_pars(t_philo *philo, char **argv, int argc)
+int		thread_start(t_philo **philo, t_info *info)
 {
-	int	i;
-	int f;
-	if (argc < 4 || argc > 5)
-		return (1);
-	if (argc < 5)
-		philo->info[T_MST_E] = -1;
+	int		i;
+
 	i = 0;
-	f = 0;
-	while (argv[++i])
-		f = data_mainer(philo, argv[i], i - 1);
-	if (f != 0)
-		return (1);
-	philo->chg_able = malloc((philo->info[SUM_PH]) * sizeof(t_part_ph));
+	while (i < info->rules[SUM_PH])
+	{
+		init_philo(philo, i, info);
+		if (pthread_create(&philo[i]->th, NULL, (void *)lifecycle, &philo[i]))
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	struct timeval	t_start;
-	t_philo			philo;
-	if (philo_pars(&philo, argv, argc))
-		return (1);
-	gettimeofday(&t_start, NULL);
+	t_philo			*philo;
+	t_info			info;
 
+	if (philo_pars(argv, argc, &info))
+		return (1);
+	philo = malloc((info.rules[SUM_PH] - 1) * sizeof(t_philo));
+	if (thread_start(&philo), &info)
+		return (1);
 }
