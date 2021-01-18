@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo.c                                       :+:      :+:    :+:   */
+/*   true_usleep.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 14:15:32 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/16 14:15:33 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/18 11:17:05 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/18 11:17:07 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	init_philo(t_philo *phd)
+void true_sleep(int wait)
 {
-	phd->waf[LEFT] = phd->name - 1;
-	phd->waf[RIGHT] = phd->name - 2;
-	if (phd->waf[RIGHT] < 0)
-		phd->waf[RIGHT] = phd->info->rules[SUM_PH] - 1;
-	phd->t_start = time_start();
-	phd->last_eat = phd->t_start;
-	phd->last_eat = 0;
+	ssize_t			start;
+	unsigned int	delta;
+
+	delta = 0;
+	start = time_start();
+	while (delta <= wait)
+		delta = time_start() - start;
 }

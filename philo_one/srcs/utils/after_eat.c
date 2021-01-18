@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo.c                                       :+:      :+:    :+:   */
+/*   after_eat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 14:15:32 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/16 14:15:33 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/19 02:33:09 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/19 02:33:11 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	init_philo(t_philo *phd)
+void	if_eat(t_philo *phd)
 {
-	phd->waf[LEFT] = phd->name - 1;
-	phd->waf[RIGHT] = phd->name - 2;
-	if (phd->waf[RIGHT] < 0)
-		phd->waf[RIGHT] = phd->info->rules[SUM_PH] - 1;
-	phd->t_start = time_start();
-	phd->last_eat = phd->t_start;
-	phd->last_eat = 0;
+	phd->last_eat = current_time(phd);
+	if (phd->name % 2)
+		right_forks_drop(phd);
+	else
+		left_forks_drop(phd);
 }

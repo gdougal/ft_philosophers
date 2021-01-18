@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo.c                                       :+:      :+:    :+:   */
+/*   wrap_chngs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 14:15:32 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/16 14:15:33 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/19 02:27:30 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/19 02:27:32 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	init_philo(t_philo *phd)
+void	mutex_wrap_chng(t_philo *phd, pthread_mutex_t *type, void f_chng())
 {
-	phd->waf[LEFT] = phd->name - 1;
-	phd->waf[RIGHT] = phd->name - 2;
-	if (phd->waf[RIGHT] < 0)
-		phd->waf[RIGHT] = phd->info->rules[SUM_PH] - 1;
-	phd->t_start = time_start();
-	phd->last_eat = phd->t_start;
-	phd->last_eat = 0;
+	pthread_mutex_lock(type);
+	f_chng(phd);
+	pthread_mutex_unlock(type);
 }

@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo.c                                       :+:      :+:    :+:   */
+/*   life_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 14:15:32 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/16 14:15:33 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/19 02:31:02 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/19 02:31:04 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	init_philo(t_philo *phd)
+void	life_check(t_philo *phd)
 {
-	phd->waf[LEFT] = phd->name - 1;
-	phd->waf[RIGHT] = phd->name - 2;
-	if (phd->waf[RIGHT] < 0)
-		phd->waf[RIGHT] = phd->info->rules[SUM_PH] - 1;
-	phd->t_start = time_start();
-	phd->last_eat = phd->t_start;
-	phd->last_eat = 0;
+	if (current_time(phd) - phd->last_eat >= phd->info->rules[T_DIE])
+		phd->info->amdead = phd->name;
 }

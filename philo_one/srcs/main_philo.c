@@ -12,62 +12,18 @@
 
 #include "philo_one.h"
 
-void	mutex_wrap_chng(t_philo *phd, void f_chng())
-{
-	pthread_mutex_lock(&phd->info->chngs);
-	f_chng(phd);
-	pthread_mutex_unlock(&phd->info->chngs);
-}
-
-void	mutex_wrap_writing(t_philo *phd, char * str, int n, void f_write())
-{
-	pthread_mutex_lock(&phd->info->write);
-	f_write(phd, str, n);
-	pthread_mutex_unlock(&phd->info->write);
-}
-
-void	forks_take(t_philo *phd)
-{
-	if (phd->name % 2)
-	{
-		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
-		pthread_mutex_lock(&phd->info->forks[phd->waf[LEFT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
-	}
-	else
-	{
-		pthread_mutex_lock(&phd->info->forks[phd->waf[LEFT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
-		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
-	}
-}
-
-void	right_forks_drop(t_philo *phd)
-{
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[LEFT]]);
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[RIGHT]]);
-}
-
-void	left_forks_drop(t_philo *phd)
-{
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[RIGHT]]);
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[LEFT]]);
-}
-
 void	lifecycle(t_philo *phd)
 {
-	mutex_wrap_chng(phd, &init_philo);
-	while (!every_day_the_same(phd))
-	{
-
-	}
+	init_philo(phd);
+	while (!every_day_the_same(phd));
+	if (phd->info->amdead && phd->info->amdead == phd->name)
+		some_bussines(phd, "is dead\n", 8, 0);
 }
 
 int		thread_start(t_philo **philo, t_info *info)
 {
 	int		i;
+	int		k;
 
 	i = 0;
 	while (i < info->rules[SUM_PH])
@@ -78,10 +34,11 @@ int		thread_start(t_philo **philo, t_info *info)
 			return (1);
 		i++;
 	}
-//	if (pthread_create(&(*philo)[i].th, NULL, (void *)is_death, info))
-//		return (1);
+	k = info->amdead - 1;
+	pthread_join((*philo)[k].th, NULL);
 	while (i-- >= 0)
-		pthread_join((*philo)[i].th, NULL);
+		if (i != k)
+			pthread_join((*philo)[i].th, NULL);
 	return (0);
 }
 

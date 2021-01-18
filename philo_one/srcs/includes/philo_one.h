@@ -31,10 +31,10 @@
 
 typedef struct		s_info
 {
-	pthread_mutex_t	death;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
-	pthread_mutex_t	chngs;
+	pthread_mutex_t	eat;
+	pthread_mutex_t	l_check;
 	int				amdead;
 	int				rules[5];
 }					t_info;
@@ -53,6 +53,9 @@ int					philo_pars(char **argv, int argc, t_info *info);
 int					ft_atoi(const char *nptr);
 ssize_t 			time_start(void);
 long int			current_time(t_philo *philo);
+void				true_sleep(int wait);
+void				life_check(t_philo *phd);
+void				if_eat(t_philo *phd);
 void				init_philo(t_philo *phd);
 void				ft_putnbr_light(ssize_t n);
 void				forks_take(t_philo *phd);
@@ -60,7 +63,7 @@ void				right_forks_drop(t_philo *phd);
 void				left_forks_drop(t_philo *phd);
 int					every_day_the_same(t_philo *phd);
 void				some_bussines(t_philo *phd, char *str, int n, int type);
-void				mutex_wrap_chng(t_philo *phd, void f_chng());
+void				mutex_wrap_chng(t_philo *phd, pthread_mutex_t *type, void f_chng());
 void				mutex_wrap_writing(t_philo *phd, char * str, int n, void f_write());
 
 #endif
