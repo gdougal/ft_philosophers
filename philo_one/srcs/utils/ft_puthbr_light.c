@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo.c                                       :+:      :+:    :+:   */
+/*   itoa_light.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 14:15:32 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/16 14:15:33 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/17 13:49:35 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/17 13:49:36 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	init_philo(t_philo *phd)
+void	ft_putnbr_light(ssize_t n)
 {
-	phd->waf[LEFT] = phd->name - 1;
-	phd->waf[RIGHT] = phd->name - 2;
-	if (phd->waf[RIGHT] < 0)
-		phd->waf[RIGHT] = phd->info->rules[SUM_PH] - 1;
-	phd->t_start = time_start();
-	phd->last_eat = 0;
+	char	num;
+	ssize_t	i;
+	ssize_t	j;
+
+	i = n;
+	j = 10;
+	while (i /= 10)
+		j *= 10;
+	while (j /= 10)
+	{
+		num = (int)(n / j) + '0';
+		write(1, &num, 1);
+		n %= j;
+	}
 }

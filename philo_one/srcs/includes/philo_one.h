@@ -26,17 +26,24 @@
 #define T_SLEEP	3
 #define T_MST_E	4
 
+#define LEFT	0
+#define RIGHT	1
+
 typedef struct		s_info
 {
-	int				death;
+	pthread_mutex_t	death;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	write;
+	pthread_mutex_t	chngs;
+	int				amdead;
 	int				rules[5];
 }					t_info;
 
 typedef struct		s_philo
 {
 	int				name;
-	int				t_start;
+	ssize_t			t_start;
+	int				waf[2];
 	pthread_t		th;
 	ssize_t			last_eat;
 	t_info			*info;
@@ -46,7 +53,14 @@ int					philo_pars(char **argv, int argc, t_info *info);
 int					ft_atoi(const char *nptr);
 ssize_t 			time_start(void);
 long int			current_time(t_philo *philo);
-void				init_philo(t_part_ph **phil, int i);
-
+void				init_philo(t_philo *phd);
+void				ft_putnbr_light(ssize_t n);
+void				forks_take(t_philo *phd);
+void				right_forks_drop(t_philo *phd);
+void				left_forks_drop(t_philo *phd);
+int					every_day_the_same(t_philo *phd);
+void				some_bussines(t_philo *phd, char *str, int n, int type);
+void				mutex_wrap_chng(t_philo *phd, void f_chng());
+void				mutex_wrap_writing(t_philo *phd, char * str, int n, void f_write());
 
 #endif
