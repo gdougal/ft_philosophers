@@ -17,11 +17,11 @@ void true_sleep(int wait, ssize_t cur, t_philo *phd)
 	ssize_t	delta;
 
 	delta = 0;
-	while (delta <= wait)
+	while (delta != wait)
 	{
-		usleep(200);
-		delta = time_start() - cur;
-		if (phd->info->amdead)
-			break ;
+		usleep(500);
+		delta = current_time(phd) - cur;
+//		if (phd->info->amdead)
+//			return ;
 	}
 }

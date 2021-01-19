@@ -14,6 +14,7 @@
 
 void	lifecycle(t_philo *phd)
 {
+	while (phd->info->start != 1);
 	init_philo(phd);
 	while (!every_day_the_same(phd));
 	if (phd->info->amdead && phd->info->amdead == phd->name)
@@ -34,6 +35,7 @@ int		thread_start(t_philo **philo, t_info *info)
 			return (1);
 		i++;
 	}
+	info->start = 1;
 	if (pthread_create(&info->d_th, NULL, (void *)life_check, philo))
 		return (1);
 	pthread_join(info->d_th, NULL);
@@ -52,7 +54,8 @@ int		main(int argc, char **argv)
 
 	if (philo_pars(argv, argc, &info))
 		return (1);
-	philo = (t_philo * )malloc((info.rules[SUM_PH]) * sizeof(t_philo));
+	if (!(philo = (t_philo *)malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
+		return (1);
 	if (thread_start(&philo, &info))
 		return (1);
 }

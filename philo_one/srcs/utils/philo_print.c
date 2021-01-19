@@ -26,14 +26,21 @@ void	print_t_name(t_philo *phd, char *str, int n)
 
 void	some_bussines(t_philo *phd, char *str, int n, int type)
 {
+	if (phd->info->amdead && phd->info->amdead != phd->name)
+		return ;
 	if (type == T_EAT && !phd->info->amdead)
+	{
 		forks_take(phd);
+		pthread_mutex_lock(&phd->info->last_eat);
+		phd->last_eat = current_time(phd);
+		pthread_mutex_unlock(&phd->info->last_eat);
+	}
 	mutex_wrap_writing(phd, str, n, print_t_name);
 	if (type == T_EAT || type == T_SLEEP)
 	{
+		true_sleep(phd->info->rules[type], current_time(phd), phd);
 		if (type == T_EAT)
 			if_eat(phd);
-		true_sleep(phd->info->rules[type], time_start(), phd);
 	}
 }
 

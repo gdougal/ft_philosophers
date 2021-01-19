@@ -26,6 +26,8 @@ int				forks_init(t_info *info)
 	}
 	pthread_mutex_init(&info->write, NULL);
 	pthread_mutex_init(&info->l_check, NULL);
+	pthread_mutex_init(&info->last_eat, NULL);
+	info->start = 0;
 	return (0);
 }
 

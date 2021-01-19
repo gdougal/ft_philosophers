@@ -12,11 +12,10 @@
 
 #include "philo_one.h"
 
-ssize_t	current_time(t_philo *philo)
+unsigned int	current_time(t_philo *philo)
 {
-	ssize_t	cur_t;
 	struct timeval	t_cur;
 	gettimeofday(&t_cur, NULL);
-	cur_t = (ssize_t)(t_cur.tv_sec * 1000 + t_cur.tv_usec / 1000) - philo->t_start;
-	return (cur_t);
+	philo->curent_time = (ssize_t)(t_cur.tv_sec * 1000 + t_cur.tv_usec / 1000) - philo->t_start;
+	return (philo->curent_time);
 }

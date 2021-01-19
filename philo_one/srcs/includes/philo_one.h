@@ -34,25 +34,28 @@ typedef struct		s_info
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
 	pthread_mutex_t	l_check;
+	pthread_mutex_t	last_eat;
 	pthread_t		d_th;
 	int				amdead;
+	int				start;
 	int				rules[5];
 }					t_info;
 
 typedef struct		s_philo
 {
 	int				name;
-	ssize_t			t_start;
 	int				waf[2];
-	pthread_t		th;
-	ssize_t 		last_eat;
 	t_info			*info;
+	ssize_t			t_start;
+	unsigned int	curent_time;
+	unsigned int	last_eat;
+	pthread_t		th;
 }					t_philo;
 
 int					philo_pars(char **argv, int argc, t_info *info);
 int					ft_atoi(const char *nptr);
 ssize_t				time_start(void);
-ssize_t				current_time(t_philo *philo);
+unsigned int		current_time(t_philo *philo);
 void				true_sleep(int wait, ssize_t last_eat, t_philo *phd);
 void				life_check(t_philo **phd);
 void				if_eat(t_philo *phd);

@@ -17,25 +17,26 @@ void	lol(t_philo *phd)
 	phd->info->amdead = phd->name;
 }
 
-void	life_check(t_philo **philo)
+void	life_check(t_philo **phd)
 {
-	t_philo	**phd;
 	int		i;
-	phd = philo;
 
-	ssize_t curent;
 	unsigned int delta;
+	unsigned int cur;
 	i = 0;
+	while ((*phd)->info->start != 2);
 	while (1)
 	{
-		curent = time_start();
-		delta = curent - (*phd)[i].last_eat;
-		if ((*phd)[i].info->amdead)
-			return;
+		cur = current_time(&(*phd)[i]);
+		pthread_mutex_lock(&(*phd)->info->last_eat);
+		delta = cur - (*phd)[i].last_eat;
+		pthread_mutex_unlock(&(*phd)->info->last_eat);
 		if (delta >= (ssize_t) (*phd)[i].info->rules[T_DIE])
 			mutex_wrap_chng(&(*phd)[i], &(*phd)[i].info->l_check, &lol);
 		i++;
-		if (i == (*phd)[i].info->rules[SUM_PH])
+		if (i == (*phd)->info->rules[SUM_PH])
 			i = 0;
+		if ((*phd)[i].info->amdead)
+			break ;
 	}
 }
