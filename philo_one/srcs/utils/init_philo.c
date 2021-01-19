@@ -19,6 +19,5 @@ void	init_philo(t_philo *phd)
 	if (phd->waf[RIGHT] < 0)
 		phd->waf[RIGHT] = phd->info->rules[SUM_PH] - 1;
 	phd->t_start = time_start();
-	phd->last_eat = phd->t_start;
 	phd->last_eat = 0;
 }

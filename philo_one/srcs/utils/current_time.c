@@ -14,9 +14,9 @@
 
 ssize_t	current_time(t_philo *philo)
 {
-	ssize_t 		cur_t;
+	ssize_t	cur_t;
 	struct timeval	t_cur;
 	gettimeofday(&t_cur, NULL);
-	cur_t = (t_cur.tv_sec * 1000 + t_cur.tv_usec * 0.001) - philo->t_start;
+	cur_t = (ssize_t)((double)t_cur.tv_sec * 1000 + t_cur.tv_usec * 0.001) - philo->t_start;
 	return (cur_t);
 }

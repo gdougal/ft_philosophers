@@ -12,11 +12,11 @@
 
 #include "philo_one.h"
 
-void	ft_putnbr_light(ssize_t n)
+void	ft_putnbr_light(unsigned int n)
 {
-	char	num;
-	ssize_t	i;
-	ssize_t	j;
+	char			num;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = n;
 	j = 10;
@@ -24,7 +24,7 @@ void	ft_putnbr_light(ssize_t n)
 		j *= 10;
 	while (j /= 10)
 	{
-		num = (int)(n / j) + '0';
+		num = (n / j) + '0';
 		write(1, &num, 1);
 		n %= j;
 	}

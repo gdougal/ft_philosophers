@@ -12,13 +12,14 @@
 
 #include "philo_one.h"
 
-void true_sleep(int wait)
+void true_sleep(int wait, ssize_t cur)
 {
-	ssize_t			start;
-	unsigned int	delta;
+	ssize_t	delta;
 
 	delta = 0;
-	start = time_start();
 	while (delta <= wait)
-		delta = time_start() - start;
+	{
+		usleep(10);
+		delta = time_start() - cur;
+	}
 }

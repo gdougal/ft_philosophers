@@ -14,6 +14,14 @@
 
 void	life_check(t_philo *phd)
 {
-	if (current_time(phd) - phd->last_eat >= phd->info->rules[T_DIE])
+	ssize_t	start;
+	int		lol;
+	int		kek;
+	if (!phd->last_eat)
+		return ;
+	start = time_start();
+	lol = phd->info->rules[T_DIE];
+	kek = (int)(start - phd->last_eat);
+	if (kek >= lol)
 		phd->info->amdead = phd->name;
 }
