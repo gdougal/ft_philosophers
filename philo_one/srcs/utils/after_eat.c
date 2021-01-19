@@ -14,7 +14,6 @@
 
 void	if_eat(t_philo *phd)
 {
-	phd->last_eat = time_start();
 	if (phd->name % 2)
 		right_forks_drop(phd);
 	else

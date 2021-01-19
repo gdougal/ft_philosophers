@@ -12,16 +12,30 @@
 
 #include "philo_one.h"
 
-void	life_check(t_philo *phd)
+void	lol(t_philo *phd)
 {
-	ssize_t	start;
-	int		lol;
-	int		kek;
-	if (!phd->last_eat)
-		return ;
-	start = time_start();
-	lol = phd->info->rules[T_DIE];
-	kek = (int)(start - phd->last_eat);
-	if (kek >= lol)
-		phd->info->amdead = phd->name;
+	phd->info->amdead = phd->name;
+}
+
+void	life_check(t_philo **philo)
+{
+	t_philo	**phd;
+	int		i;
+	phd = philo;
+
+	ssize_t curent;
+	unsigned int delta;
+	i = 0;
+	while (1)
+	{
+		curent = time_start();
+		delta = curent - (*phd)[i].last_eat;
+		if ((*phd)[i].info->amdead)
+			return;
+		if (delta >= (ssize_t) (*phd)[i].info->rules[T_DIE])
+			mutex_wrap_chng(&(*phd)[i], &(*phd)[i].info->l_check, &lol);
+		i++;
+		if (i == (*phd)[i].info->rules[SUM_PH])
+			i = 0;
+	}
 }

@@ -26,17 +26,14 @@ void	print_t_name(t_philo *phd, char *str, int n)
 
 void	some_bussines(t_philo *phd, char *str, int n, int type)
 {
-	if (type == T_EAT)
+	if (type == T_EAT && !phd->info->amdead)
 		forks_take(phd);
-	mutex_wrap_chng(phd, &phd->info->l_check, &life_check);
-	if (phd->info->amdead && phd->info->amdead != phd->name)
-		return ;
 	mutex_wrap_writing(phd, str, n, print_t_name);
 	if (type == T_EAT || type == T_SLEEP)
 	{
 		if (type == T_EAT)
-			mutex_wrap_chng(phd, &phd->info->eat, &if_eat);
-		true_sleep(phd->info->rules[type], time_start());
+			if_eat(phd);
+		true_sleep(phd->info->rules[type], time_start(), phd);
 	}
 }
 

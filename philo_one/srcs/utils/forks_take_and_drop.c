@@ -14,6 +14,8 @@
 
 void	forks_take(t_philo *phd)
 {
+	if (phd->info->amdead)
+		return ;
 	if (phd->name % 2)
 	{
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
@@ -28,6 +30,7 @@ void	forks_take(t_philo *phd)
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
 		some_bussines(phd, "has taken a fork\n", 17, 0);
 	}
+	phd->last_eat = time_start();
 }
 
 void	right_forks_drop(t_philo *phd)

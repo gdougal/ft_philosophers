@@ -34,6 +34,9 @@ int		thread_start(t_philo **philo, t_info *info)
 			return (1);
 		i++;
 	}
+	if (pthread_create(&info->d_th, NULL, (void *)life_check, philo))
+		return (1);
+	pthread_join(info->d_th, NULL);
 	k = info->amdead - 1;
 	pthread_join((*philo)[k].th, NULL);
 	while (i-- >= 0)

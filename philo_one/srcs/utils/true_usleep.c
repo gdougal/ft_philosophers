@@ -12,14 +12,16 @@
 
 #include "philo_one.h"
 
-void true_sleep(int wait, ssize_t cur)
+void true_sleep(int wait, ssize_t cur, t_philo *phd)
 {
 	ssize_t	delta;
 
 	delta = 0;
 	while (delta <= wait)
 	{
-		usleep(10);
+		usleep(200);
 		delta = time_start() - cur;
+		if (phd->info->amdead)
+			break ;
 	}
 }
