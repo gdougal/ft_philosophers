@@ -14,17 +14,14 @@
 
 void	lifecycle(t_philo *phd)
 {
-	while (phd->info->start != 1);
+	while (!phd->info->start);
 	init_philo(phd);
 	while (!every_day_the_same(phd));
-	if (phd->info->amdead && phd->info->amdead == phd->name)
-		some_bussines(phd, "is dead\n", 8, 0);
 }
 
 int		thread_start(t_philo **philo, t_info *info)
 {
 	int		i;
-	int		k;
 
 	i = 0;
 	while (i < info->rules[SUM_PH])
@@ -35,15 +32,11 @@ int		thread_start(t_philo **philo, t_info *info)
 			return (1);
 		i++;
 	}
-	info->start = 1;
 	if (pthread_create(&info->d_th, NULL, (void *)life_check, philo))
 		return (1);
 	pthread_join(info->d_th, NULL);
-	k = info->amdead - 1;
-	pthread_join((*philo)[k].th, NULL);
 	while (i-- >= 0)
-		if (i != k)
-			pthread_join((*philo)[i].th, NULL);
+		pthread_join((*philo)[i].th, NULL);
 	return (0);
 }
 

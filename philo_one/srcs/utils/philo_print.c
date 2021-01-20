@@ -13,8 +13,19 @@
 #include "philo_one.h"
 
 
+int		life_status(t_philo *phd)
+{
+	int	k;
+	pthread_mutex_lock(&phd->info->l_check);
+	k = phd->info->amdead;
+	pthread_mutex_unlock(&phd->info->l_check);
+	return (k);
+}
+
 void	print_t_name(t_philo *phd, char *str, int n)
 {
+	if (life_status(phd))
+		return ;
 	ft_putnbr_light(current_time(phd));
 	write(1, " ", 1);
 	ft_putnbr_light(phd->name);
@@ -24,7 +35,7 @@ void	print_t_name(t_philo *phd, char *str, int n)
 
 void	some_bussines(t_philo *phd, char *str, int n, int type)
 {
-	if (phd->info->amdead && phd->info->amdead != phd->name)
+	if (life_status(phd))
 		return ;
 	if (type == T_EAT && !phd->info->amdead)
 		forks_take(phd);
@@ -45,16 +56,10 @@ void	some_bussines(t_philo *phd, char *str, int n, int type)
 
 int		every_day_the_same(t_philo *phd)
 {
-	if (phd->info->amdead)
-		return (1);
-	some_bussines(phd, "is eating\n", 10, T_EAT);
-	if (phd->info->amdead)
-		return (1);
-	some_bussines(phd, "is sleeping\n", 12, T_SLEEP);
-	if (phd->info->amdead)
-		return (1);
-	some_bussines(phd, "is thinking\n", 12, 0);
-	if (phd->info->amdead)
+	some_bussines(phd, EAT, 10, T_EAT);
+	some_bussines(phd, SLEEP, 12, T_SLEEP);
+	some_bussines(phd, THINK, 12, 0);
+	if(life_status(phd))
 		return (1);
 	return (0);
 }

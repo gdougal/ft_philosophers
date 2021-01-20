@@ -14,24 +14,22 @@
 
 void	forks_take(t_philo *phd)
 {
-	if (phd->info->amdead)
+	if (life_status(phd))
 		return ;
 	if (phd->name % 2)
 	{
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
+		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
 		pthread_mutex_lock(&phd->info->forks[phd->waf[LEFT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
+		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
 	}
 	else
 	{
 		pthread_mutex_lock(&phd->info->forks[phd->waf[LEFT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
+		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
-		some_bussines(phd, "has taken a fork\n", 17, 0);
+		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
 	}
-	if (phd->info->start == 1)
-		phd->info->start = 2;
 }
 
 void	right_forks_drop(t_philo *phd)

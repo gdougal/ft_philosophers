@@ -20,14 +20,31 @@
 #include <sys/time.h>
 #include <string.h>
 
-#define SUM_PH	0
-#define T_DIE	1
-#define T_EAT	2
-#define T_SLEEP	3
-#define T_MST_E	4
+typedef enum
+{
+	SUM_PH = 0,
+	T_DIE = 1,
+	T_EAT = 2,
+	T_SLEEP = 3,
+	T_MST_E = 4,
+	LEFT = 0,
+	RIGHT = 1
+}	t_enum;
 
-#define LEFT	0
-#define RIGHT	1
+//#define SUM_PH	0
+//#define T_DIE	1
+//#define T_EAT	2
+//#define T_SLEEP	3
+//#define T_MST_E	4
+
+//#define LEFT	0
+//#define RIGHT	1
+
+#define EAT	"is eating\n"
+#define SLEEP	"is sleeping\n"
+#define THINK	"is thinking\n"
+#define DEAD	"is dead\n"
+#define TAKE_F	"has taken a fork\n"
 
 typedef struct		s_info
 {
@@ -36,6 +53,7 @@ typedef struct		s_info
 	pthread_mutex_t	l_check;
 	pthread_mutex_t	last_eat;
 	pthread_t		d_th;
+	pthread_mutex_t	chng;
 	int				amdead;
 	int				start;
 	int				rules[5];
@@ -69,5 +87,6 @@ void				some_bussines(t_philo *phd, char *str, int n, int type);
 void				print_t_name(t_philo *phd, char *str, int n);
 void				mutex_wrap_chng(t_philo *phd, pthread_mutex_t *type, void f_chng());
 void				mutex_wrap_writing(t_philo *phd, char * str, int n, void f_write());
+int					life_status(t_philo *phd);
 
 #endif
