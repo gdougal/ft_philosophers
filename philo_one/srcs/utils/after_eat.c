@@ -15,7 +15,7 @@
 void	if_eat(t_philo *phd)
 {
 	if (phd->name % 2)
-		right_forks_drop(phd);
+		forks_drop(phd, RIGHT, LEFT);
 	else
-		left_forks_drop(phd);
+		forks_drop(phd, LEFT, RIGHT);
 }

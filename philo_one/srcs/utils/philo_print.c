@@ -37,28 +37,18 @@ void	some_bussines(t_philo *phd, char *str, int n, int type)
 {
 	if (life_status(phd))
 		return ;
-	if (type == T_EAT && !phd->info->amdead)
+	if (type == T_EAT)
 		forks_take(phd);
 	mutex_wrap_writing(phd, str, n, print_t_name);
-	if (type == T_EAT || type == T_SLEEP)
-	{
-		if (type == T_EAT)
-		{
-			pthread_mutex_lock(&phd->info->last_eat);
-			phd->last_eat = current_time(phd);
-			pthread_mutex_unlock(&phd->info->last_eat);
-		}
-		true_sleep(phd->info->rules[type], current_time(phd), phd);
-		if (type == T_EAT)
-			if_eat(phd);
-	}
+	true_sleep(phd->info->rules[type], current_time(phd), phd);
 }
 
 int		every_day_the_same(t_philo *phd)
 {
 	some_bussines(phd, EAT, 10, T_EAT);
+	if_eat(phd);
 	some_bussines(phd, SLEEP, 12, T_SLEEP);
-	some_bussines(phd, THINK, 12, 0);
+	mutex_wrap_writing(phd, THINK, 12, print_t_name);
 	if(life_status(phd))
 		return (1);
 	return (0);

@@ -59,5 +59,6 @@ void	life_check(t_philo **phd)
 		i++;
 		if (i == (*phd)->info->rules[SUM_PH])
 			i = 0;
+		usleep(500);
 	}
 }

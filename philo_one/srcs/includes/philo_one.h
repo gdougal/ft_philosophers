@@ -44,7 +44,10 @@ typedef enum
 #define SLEEP	"is sleeping\n"
 #define THINK	"is thinking\n"
 #define DEAD	"is dead\n"
-#define TAKE_F	"has taken a fork\n"
+#define TAKE_R_F	"has taken a right fork\n"
+#define TAKE_L_F	"has taken a left fork\n"
+#define DROP_R_F	"has dropped a right fork\n"
+#define DROP_L_F	"has dropped a left fork\n"
 
 typedef struct		s_info
 {
@@ -80,8 +83,7 @@ void				if_eat(t_philo *phd);
 void				init_philo(t_philo *phd);
 void				ft_putnbr_light(unsigned int n);
 void				forks_take(t_philo *phd);
-void				right_forks_drop(t_philo *phd);
-void				left_forks_drop(t_philo *phd);
+void				forks_drop(t_philo *phd, int hand_1, int hand_2);
 int					every_day_the_same(t_philo *phd);
 void				some_bussines(t_philo *phd, char *str, int n, int type);
 void				print_t_name(t_philo *phd, char *str, int n);

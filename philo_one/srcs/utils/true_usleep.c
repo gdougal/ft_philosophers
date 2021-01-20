@@ -21,7 +21,5 @@ void true_sleep(int wait, ssize_t cur, t_philo *phd)
 	{
 		usleep(500);
 		delta = current_time(phd) - cur;
-//		if (phd->info->amdead)
-//			return ;
 	}
 }

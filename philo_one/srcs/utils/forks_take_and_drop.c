@@ -19,27 +19,24 @@ void	forks_take(t_philo *phd)
 	if (phd->name % 2)
 	{
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
-		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
+		mutex_wrap_writing(phd, TAKE_R_F, 23, print_t_name);
 		pthread_mutex_lock(&phd->info->forks[phd->waf[LEFT]]);
-		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
+		mutex_wrap_writing(phd, TAKE_L_F, 22, print_t_name);
 	}
 	else
 	{
 		pthread_mutex_lock(&phd->info->forks[phd->waf[LEFT]]);
-		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
+		mutex_wrap_writing(phd, TAKE_L_F, 22, print_t_name);
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
-		mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
+		mutex_wrap_writing(phd, TAKE_R_F, 23, print_t_name);
 	}
+	pthread_mutex_lock(&phd->info->last_eat);
+	phd->last_eat = current_time(phd);
+	pthread_mutex_unlock(&phd->info->last_eat);
 }
 
-void	right_forks_drop(t_philo *phd)
+void	forks_drop(t_philo *phd, int hand_1, int hand_2)
 {
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[LEFT]]);
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[RIGHT]]);
-}
-
-void	left_forks_drop(t_philo *phd)
-{
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[RIGHT]]);
-	pthread_mutex_unlock(&phd->info->forks[phd->waf[LEFT]]);
+	pthread_mutex_unlock(&phd->info->forks[phd->waf[hand_1]]);
+	pthread_mutex_unlock(&phd->info->forks[phd->waf[hand_2]]);
 }
