@@ -44,9 +44,9 @@ int		philo_pars(char **argv, int argc, t_info *info)
 {
 	int	i;
 	int f;
-	if (argc < 4 || argc > 5)
+	if (argc < 5 || argc > 6)
 		return (1);
-	if (argc < 5)
+	if (argc == 6)
 		info->rules[T_MST_E] = -1;
 	i = 0;
 	f = 0;

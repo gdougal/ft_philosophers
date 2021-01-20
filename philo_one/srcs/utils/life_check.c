@@ -22,7 +22,7 @@ void	print_dead(t_philo *phd, char *str, int n)
 	write(1, str, n);
 }
 
-void	lol(t_philo *phd)
+void	dead_status(t_philo *phd)
 {
 	phd->info->amdead = phd->name;
 	mutex_wrap_writing(phd, DEAD, 8, print_dead);
@@ -40,25 +40,22 @@ int status(t_info *info)
 void	life_check(t_philo **phd)
 {
 	int		i;
+	ssize_t			delta;
 
-	unsigned int delta;
-	unsigned int cur;
 	i = 0;
-	(*phd)->info->start = 1;
-	while (status((*phd)->info) != (*phd)->info->rules[SUM_PH] + 1);
+	while (status((*phd)->info) < (*phd)->info->rules[SUM_PH]);
 	while (1)
 	{
-		cur = current_time(&(*phd)[i]);
 		pthread_mutex_lock(&(*phd)->info->last_eat);
-		delta = cur - (*phd)[i].last_eat;
+		delta = time_start() - (*phd)[i].last_eat;
 		pthread_mutex_unlock(&(*phd)->info->last_eat);
-		if (delta >= (*phd)[i].info->rules[T_DIE])
-			mutex_wrap_chng(&(*phd)[i], &(*phd)[i].info->l_check, &lol);
-		if (life_status(*phd))
+		if (delta >= (*phd)[i].info->rules[T_DIE] && (*phd)[i].must_eat)
+			mutex_wrap_chng(&(*phd)[i], &(*phd)[i].info->l_check, &dead_status);
+		if (life_status(*phd) || !(*phd)[i].must_eat)
 			break ;
 		i++;
 		if (i == (*phd)->info->rules[SUM_PH])
 			i = 0;
-		usleep(500);
+		usleep(3000);
 	}
 }

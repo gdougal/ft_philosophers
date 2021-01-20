@@ -12,7 +12,7 @@
 
 #include "philo_one.h"
 
-unsigned int	current_time(t_philo *philo)
+ssize_t		current_time(t_philo *philo)
 {
 	struct timeval	t_cur;
 	gettimeofday(&t_cur, NULL);

@@ -33,23 +33,17 @@ void	print_t_name(t_philo *phd, char *str, int n)
 	write(1, str, n);
 }
 
-void	some_bussines(t_philo *phd, char *str, int n, int type)
+void	every_day_the_same(t_philo *phd)
 {
-	if (life_status(phd))
-		return ;
-	if (type == T_EAT)
-		forks_take(phd);
-	mutex_wrap_writing(phd, str, n, print_t_name);
-	true_sleep(phd->info->rules[type], current_time(phd), phd);
-}
-
-int		every_day_the_same(t_philo *phd)
-{
-	some_bussines(phd, EAT, 10, T_EAT);
+	forks_take(phd);
+	pthread_mutex_lock(&phd->info->last_eat);
+	phd->last_eat = time_start();
+	pthread_mutex_unlock(&phd->info->last_eat);
+	mutex_wrap_writing(phd, EAT, 10, print_t_name);
+	true_sleep(phd->info->rules[T_EAT], current_time(phd), phd);
 	if_eat(phd);
-	some_bussines(phd, SLEEP, 12, T_SLEEP);
+	mutex_wrap_writing(phd, SLEEP, 12, print_t_name);
+	true_sleep(phd->info->rules[T_SLEEP], current_time(phd), phd);
 	mutex_wrap_writing(phd, THINK, 12, print_t_name);
-	if(life_status(phd))
-		return (1);
-	return (0);
+	phd->must_eat--;
 }

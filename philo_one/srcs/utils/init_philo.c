@@ -14,13 +14,9 @@
 
 void	init_philo(t_philo *phd)
 {
-	phd->waf[LEFT] = phd->name - 1;
-	phd->waf[RIGHT] = phd->name - 2;
-	if (phd->waf[RIGHT] < 0)
-		phd->waf[RIGHT] = phd->info->rules[SUM_PH] - 1;
+	pthread_mutex_lock(&phd->info->last_eat);
 	phd->t_start = time_start();
-	phd->last_eat = current_time(phd);
-	pthread_mutex_lock(&phd->info->chng);
-	phd->info->start++;
-	pthread_mutex_unlock(&phd->info->chng);
+	pthread_mutex_unlock(&phd->info->last_eat);
+	phd->last_eat = phd->t_start;
+	change_status(phd->info);
 }

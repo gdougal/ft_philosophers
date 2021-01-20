@@ -14,8 +14,6 @@
 
 void	forks_take(t_philo *phd)
 {
-	if (life_status(phd))
-		return ;
 	if (phd->name % 2)
 	{
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
@@ -30,9 +28,6 @@ void	forks_take(t_philo *phd)
 		pthread_mutex_lock(&phd->info->forks[phd->waf[RIGHT]]);
 		mutex_wrap_writing(phd, TAKE_R_F, 23, print_t_name);
 	}
-	pthread_mutex_lock(&phd->info->last_eat);
-	phd->last_eat = current_time(phd);
-	pthread_mutex_unlock(&phd->info->last_eat);
 }
 
 void	forks_drop(t_philo *phd, int hand_1, int hand_2)

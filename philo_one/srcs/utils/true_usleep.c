@@ -19,7 +19,7 @@ void true_sleep(int wait, ssize_t cur, t_philo *phd)
 	delta = 0;
 	while (delta != wait)
 	{
-		usleep(500);
 		delta = current_time(phd) - cur;
+		usleep(200);
 	}
 }
