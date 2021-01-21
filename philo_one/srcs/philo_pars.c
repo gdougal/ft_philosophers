@@ -36,6 +36,8 @@ int				forks_init(t_info *info)
 static int		data_mainer(t_info *info, char *argv, int i)
 {
 	info->rules[i] = ft_atoi(argv);
+	if (info->rules[0] < 2)
+		return (2);
 	if (info->rules[i] < 1)
 		return (2);
 	return (0);
