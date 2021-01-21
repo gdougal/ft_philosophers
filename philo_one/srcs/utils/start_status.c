@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   after_eat.c                                        :+:      :+:    :+:   */
+/*   start_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 02:33:09 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/19 02:33:11 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/21 23:42:56 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/21 23:42:58 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	after_eat(t_philo *phd)
+int start_status(t_info *info)
 {
-	if (phd->name % 2)
-		forks_drop(phd, RIGHT, LEFT);
-	else
-		forks_drop(phd, LEFT, RIGHT);
+	int	status;
+	pthread_mutex_lock(&info->chng);
+	status = info->start;
+	pthread_mutex_unlock(&info->chng);
+	return (status);
 }

@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   after_eat.c                                        :+:      :+:    :+:   */
+/*   print_dead.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 02:33:09 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/19 02:33:11 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/21 23:46:11 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/21 23:46:13 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <unistd.h>
 
-void	after_eat(t_philo *phd)
+void	print_dead(t_philo *phd, char *str, int n)
 {
-	if (phd->name % 2)
-		forks_drop(phd, RIGHT, LEFT);
-	else
-		forks_drop(phd, LEFT, RIGHT);
+	ft_putnbr_light(current_time(phd));
+	write(1, " ", 1);
+	ft_putnbr_light(phd->name);
+	write(1, " ", 1);
+	write(1, str, n);
 }

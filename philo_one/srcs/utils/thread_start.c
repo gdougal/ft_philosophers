@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   after_eat.c                                        :+:      :+:    :+:   */
+/*   thread_start.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 02:33:09 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/19 02:33:11 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/21 23:34:51 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/21 23:34:53 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	after_eat(t_philo *phd)
+int		thread_start(t_philo **philo, t_info *info)
 {
-	if (phd->name % 2)
-		forks_drop(phd, RIGHT, LEFT);
-	else
-		forks_drop(phd, LEFT, RIGHT);
+	int	i;
+
+	i = 0;
+	while (i < info->rules[SUM_PH])
+	{
+		if (pthread_create(&(*philo)[i].th, NULL, (void *)lifecycle, &(*philo)[i]))
+			return (1);
+		i++;
+	}
+	if (pthread_create(&info->d_th, NULL, (void *)life_check, philo))
+		return (1);
+	pthread_join(info->d_th, NULL);
+	while (i-- >= 0)
+		pthread_join((*philo)[i].th, NULL);
+	return (0);
 }

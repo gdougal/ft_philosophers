@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   after_eat.c                                        :+:      :+:    :+:   */
+/*   dead_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 02:33:09 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/19 02:33:11 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/21 23:44:53 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/21 23:44:54 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	after_eat(t_philo *phd)
+void	dead_status(t_philo *phd)
 {
-	if (phd->name % 2)
-		forks_drop(phd, RIGHT, LEFT);
-	else
-		forks_drop(phd, LEFT, RIGHT);
+	phd->info->amdead = phd->name;
+	mutex_wrap_writing(phd, DEAD, 8, print_dead);
 }

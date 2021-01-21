@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   after_eat.c                                        :+:      :+:    :+:   */
+/*   lifesycle.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 02:33:09 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/19 02:33:11 by gdougal          ###   ########.fr       */
+/*   Created: 2021/01/21 23:30:45 by gdougal           #+#    #+#             */
+/*   Updated: 2021/01/21 23:30:46 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <unistd.h>
 
-void	after_eat(t_philo *phd)
+void	lifecycle(t_philo *phd)
 {
-	if (phd->name % 2)
-		forks_drop(phd, RIGHT, LEFT);
-	else
-		forks_drop(phd, LEFT, RIGHT);
+	init_philo(phd);
+	change_status(phd->info);
+	while (start_status(phd->info) < phd->info->rules[SUM_PH])
+		usleep(10);
+	while (!phd->info->amdead && phd->must_eat)
+		every_day_the_same(phd);
 }

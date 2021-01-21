@@ -13,38 +13,13 @@
 #include "philo_one.h"
 #include <unistd.h>
 
-
-void	print_dead(t_philo *phd, char *str, int n)
-{
-	ft_putnbr_light(current_time(phd));
-	write(1, " ", 1);
-	ft_putnbr_light(phd->name);
-	write(1, " ", 1);
-	write(1, str, n);
-}
-
-void	dead_status(t_philo *phd)
-{
-	phd->info->amdead = phd->name;
-	mutex_wrap_writing(phd, DEAD, 8, print_dead);
-}
-
-int status(t_info *info)
-{
-	int	status;
-	pthread_mutex_lock(&info->chng);
-	status = info->start;
-	pthread_mutex_unlock(&info->chng);
-	return (status);
-}
-
 void	life_check(t_philo **phd)
 {
 	int		i;
 	ssize_t			delta;
 
 	i = 0;
-	while (status((*phd)->info) < (*phd)->info->rules[SUM_PH])
+	while (start_status((*phd)->info) < (*phd)->info->rules[SUM_PH])
 		usleep(10);
 	while (1)
 	{

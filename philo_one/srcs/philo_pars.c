@@ -29,7 +29,6 @@ int				forks_init(t_info *info)
 	pthread_mutex_init(&info->l_check, NULL);
 	pthread_mutex_init(&info->last_eat, NULL);
 	pthread_mutex_init(&info->chng, NULL);
-	pthread_mutex_init(&info->fork, NULL);
 	info->start = 0;
 	return (0);
 }
@@ -42,7 +41,7 @@ static int		data_mainer(t_info *info, char *argv, int i)
 	return (0);
 }
 
-int		philo_pars(char **argv, int argc, t_info *info)
+int				philo_pars(char **argv, int argc, t_info *info)
 {
 	int	i;
 	int	status;
