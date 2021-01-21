@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <unistd.h>
 
 void	change_status(t_info *info)
 {
@@ -22,8 +23,11 @@ void	change_status(t_info *info)
 void	lifecycle(t_philo *phd)
 {
 	init_philo(phd);
-//	change_status(phd->info);
-	while (!life_status(phd) && phd->must_eat)
+	change_status(phd->info);
+	while (status(phd->info) < phd->info->rules[SUM_PH]);
+//	if ((phd->name % 2))
+//		usleep(500);
+	while (!phd->info->amdead && phd->must_eat)
 		every_day_the_same(phd);
 }
 
@@ -64,20 +68,38 @@ void	pre_init(t_philo **phd, t_info *info)
 		if ((*phd)[i].waf[RIGHT] < 0)
 			(*phd)[i].waf[RIGHT] = info->rules[SUM_PH] - 1;
 		(*phd)[i].must_eat = (*phd)[i].info->rules[T_MST_E];
+		pthread_mutex_init(&(*phd)[i].cheel, NULL);
 		i++;
 	}
+}
+
+void clear_space(int status, t_info *info, t_philo **phd)
+{
+	if (status == 1 || status == 2 || status == 3)
+		return ;
+	if (status >= 5)
+		free(info->forks);
+	if (status >= 6)
+		free(*phd);
 }
 
 int		main(int argc, char **argv)
 {
 	t_philo			*philo;
 	t_info			info;
+	int				status;
 
-	if (philo_pars(argv, argc, &info))
-		return (1);
-	if (!(philo = (t_philo *)malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
-		return (1);
-	pre_init(&philo, &info);
-	if (thread_start(&philo, &info))
-		return (1);
+	status = 0;
+	status = philo_pars(argv, argc, &info);
+	if (!status)
+		if (!(philo = (t_philo *)malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
+			status = 5;
+	if (!status)
+	{
+		pre_init(&philo, &info);
+		if (thread_start(&philo, &info))
+			status = 6;
+	}
+	clear_space(status, &info, &philo);
+	return (status);
 }

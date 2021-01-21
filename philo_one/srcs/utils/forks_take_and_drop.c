@@ -11,13 +11,17 @@
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <pthread.h>
 
 void	forks_take(t_philo *phd, int hand_1, int hand_2)
 {
-		pthread_mutex_lock(&phd->info->forks[phd->waf[hand_1]]);
-		mutex_wrap_writing(phd, TAKE_R_F, 23, print_t_name);
+	if (phd->name % 2)
 		pthread_mutex_lock(&phd->info->forks[phd->waf[hand_2]]);
-		mutex_wrap_writing(phd, TAKE_L_F, 22, print_t_name);
+	pthread_mutex_lock(&phd->info->forks[phd->waf[hand_1]]);
+	mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
+	if (!phd->name % 2)
+		pthread_mutex_lock(&phd->info->forks[phd->waf[hand_2]]);
+	mutex_wrap_writing(phd, TAKE_F, 17, print_t_name);
 }
 
 void	forks_drop(t_philo *phd, int hand_1, int hand_2)

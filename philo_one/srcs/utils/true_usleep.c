@@ -11,15 +11,13 @@
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <unistd.h>
 
-void true_sleep(int wait, ssize_t cur, t_philo *phd)
+void true_sleep(int wait)
 {
-	ssize_t	delta;
+	ssize_t start;
 
-	delta = 0;
-	while (delta != wait)
-	{
-		delta = current_time(phd) - cur;
-		usleep(200);
-	}
+	start = time_start();
+	while (time_start() - start < wait)
+		usleep(1);
 }

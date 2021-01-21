@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <sys/time.h>
 
 ssize_t		current_time(t_philo *philo)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <unistd.h>
 
 
 void	print_dead(t_philo *phd, char *str, int n)
@@ -52,11 +53,11 @@ void	life_check(t_philo **phd)
 		pthread_mutex_unlock(&(*phd)->info->last_eat);
 		if (delta >= (*phd)[i].info->rules[T_DIE] && (*phd)[i].must_eat)
 			mutex_wrap_chng(&(*phd)[i], &(*phd)[i].info->l_check, &dead_status);
-		if (life_status(*phd) || !(*phd)[i].must_eat)
+		if ((*phd)[i].info->amdead || !(*phd)[i].must_eat)
 			break ;
 		i++;
 		if (i == (*phd)->info->rules[SUM_PH])
 			i = 0;
-		usleep(3000);
+		usleep(500);
 	}
 }

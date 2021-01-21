@@ -18,5 +18,5 @@ void	init_philo(t_philo *phd)
 	phd->t_start = time_start();
 	pthread_mutex_unlock(&phd->info->last_eat);
 	phd->last_eat = phd->t_start;
-	change_status(phd->info);
+//	change_status(phd->info);
 }

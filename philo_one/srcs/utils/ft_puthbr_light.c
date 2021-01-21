@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo_one.h"
+#include <unistd.h>
 
 void	ft_putnbr_light(unsigned int n)
 {

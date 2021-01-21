@@ -13,12 +13,9 @@
 #ifndef PHILO_ONE_H
 # define PHILO_ONE_H
 
-#include <pthread.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/time.h>
 #include <string.h>
+#include <pthread.h>
 
 typedef enum
 {
@@ -31,23 +28,12 @@ typedef enum
 	RIGHT = 1
 }	t_enum;
 
-//#define SUM_PH	0
-//#define T_DIE	1
-//#define T_EAT	2
-//#define T_SLEEP	3
-//#define T_MST_E	4
-
-//#define LEFT	0
-//#define RIGHT	1
-
 #define EAT	"is eating\n"
 #define SLEEP	"is sleeping\n"
 #define THINK	"is thinking\n"
 #define DEAD	"is dead\n"
-#define TAKE_R_F	"has taken a right fork\n"
-#define TAKE_L_F	"has taken a left fork\n"
-#define DROP_R_F	"has dropped a right fork\n"
-#define DROP_L_F	"has dropped a left fork\n"
+#define TAKE_F	"has taken a fork\n"
+#define DROP_F	"has dropped a fork\n"
 
 typedef struct		s_info
 {
@@ -66,6 +52,7 @@ typedef struct		s_info
 typedef struct		s_philo
 {
 	int				name;
+	pthread_mutex_t cheel;
 	int				waf[2];
 	int				must_eat;
 	ssize_t			curent_time;
@@ -79,7 +66,7 @@ int					philo_pars(char **argv, int argc, t_info *info);
 int					ft_atoi(const char *nptr);
 ssize_t				time_start(void);
 ssize_t				current_time(t_philo *philo);
-void				true_sleep(int wait, ssize_t last_eat, t_philo *phd);
+void				true_sleep(int wait);
 void				life_check(t_philo **phd);
 void				before_eat(t_philo *phd);
 void				after_eat(t_philo *phd);
@@ -91,7 +78,7 @@ void				every_day_the_same(t_philo *phd);
 void				print_t_name(t_philo *phd, char *str, int n);
 void				mutex_wrap_chng(t_philo *phd, pthread_mutex_t *type, void f_chng());
 void				mutex_wrap_writing(t_philo *phd, char * str, int n, void f_write());
-int					life_status(t_philo *phd);
+//int					life_status(t_philo *phd);
 int					status(t_info *info);
 void				change_status(t_info *info);
 #endif
