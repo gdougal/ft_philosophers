@@ -22,6 +22,7 @@ void	change_status(t_info *info)
 void	lifecycle(t_philo *phd)
 {
 	init_philo(phd);
+//	change_status(phd->info);
 	while (!life_status(phd) && phd->must_eat)
 		every_day_the_same(phd);
 }
@@ -37,9 +38,6 @@ int		thread_start(t_philo **philo, t_info *info)
 			return (1);
 		i++;
 	}
-	if (info->rules[SUM_PH])
-		while (i-- >= 0)
-			pthread_join((*philo)[i].th, NULL);
 	if (pthread_create(&info->d_th, NULL, (void *)life_check, philo))
 		return (1);
 	pthread_join(info->d_th, NULL);

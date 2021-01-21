@@ -43,7 +43,8 @@ void	life_check(t_philo **phd)
 	ssize_t			delta;
 
 	i = 0;
-	while (status((*phd)->info) < (*phd)->info->rules[SUM_PH]);
+	while (status((*phd)->info) < (*phd)->info->rules[SUM_PH])
+		usleep(10);
 	while (1)
 	{
 		pthread_mutex_lock(&(*phd)->info->last_eat);
