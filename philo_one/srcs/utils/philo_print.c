@@ -35,14 +35,18 @@ void	print_t_name(t_philo *phd, char *str, int n)
 
 void	every_day_the_same(t_philo *phd)
 {
-	forks_take(phd);
+	before_eat(phd);
+
 	pthread_mutex_lock(&phd->info->last_eat);
 	phd->last_eat = time_start();
 	pthread_mutex_unlock(&phd->info->last_eat);
+
 	mutex_wrap_writing(phd, EAT, 10, print_t_name);
 	phd->must_eat--;
 	true_sleep(phd->info->rules[T_EAT], current_time(phd), phd);
-	if_eat(phd);
+
+	after_eat(phd);
+
 	if (!phd->must_eat)
 		return ;
 	mutex_wrap_writing(phd, SLEEP, 12, print_t_name);

@@ -12,7 +12,18 @@
 
 #include "philo_one.h"
 
-void	if_eat(t_philo *phd)
+
+void	before_eat(t_philo *phd)
+{
+	{
+		if (phd->name % 2)
+			forks_take(phd, RIGHT, LEFT);
+		else
+			forks_take(phd, LEFT, RIGHT);
+	}
+}
+
+void	after_eat(t_philo *phd)
 {
 	if (phd->name % 2)
 		forks_drop(phd, RIGHT, LEFT);
