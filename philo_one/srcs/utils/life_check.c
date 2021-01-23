@@ -13,10 +13,10 @@
 #include "philo_one.h"
 #include <unistd.h>
 
-void	life_check(t_philo **phd)
+void		life_check(t_philo **phd)
 {
 	int		i;
-	ssize_t			delta;
+	ssize_t	delta;
 
 	i = 0;
 	while (start_status((*phd)->info) < (*phd)->info->rules[SUM_PH])

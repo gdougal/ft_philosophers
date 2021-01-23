@@ -15,15 +15,19 @@
 void	semaphore_close(t_info *info)
 {
 	sem_close(info->forks);
-	sem_close(info->last_eat);
-	sem_close(info->l_check);
-	sem_close(info->write);
 	sem_close(info->waiter);
+	sem_close(info->write);
+	sem_close(info->last_eat);
+	sem_close(info->detah);
+	sem_close(info->start);
+	sem_close(info->must_eat);
 	sem_unlink("/forks");
 	sem_unlink("/waiter");
 	sem_unlink("/write");
-	sem_unlink("/l_check");
 	sem_unlink("/last_eat");
+	sem_unlink("/death");
+	sem_unlink("/start");
+	sem_unlink("/must_eat");
 }
 
 void	clear_space(int status, t_info *info, t_philo **phd)

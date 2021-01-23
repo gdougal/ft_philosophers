@@ -12,7 +12,7 @@
 
 #include "philo_one.h"
 
-void	mutex_wrap_writing(t_philo *phd, char * str, int n, void f_write())
+void	mutex_wrap_writing(t_philo *phd, char *str, int n, void f_write())
 {
 	pthread_mutex_lock(&phd->info->write);
 	f_write(phd, str, n);

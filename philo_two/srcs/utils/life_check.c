@@ -34,7 +34,7 @@ void	life_check(t_philo **phd)
 		if (delta >= (*phd)[i].info->rules[T_DIE] && (*phd)[i].must_eat)
 			sem_wrap_chng(&(*phd)[i], (*phd)[i].info->l_check, &dead_status);
 		if ((*phd)[i].info->amdead || !(*phd)[i].must_eat)
-			break;
+			break ;
 		i++;
 		if (i == (*phd)->info->rules[SUM_PH])
 			i = 0;

@@ -24,7 +24,10 @@ void	every_day_the_same(t_philo *phd)
 	true_sleep(phd->info->rules[T_EAT]);
 	forks_drop(phd);
 	if (!phd->must_eat)
+	{
+		sem_post(phd->info->must_eat);
 		return ;
+	}
 	sem_wrap_writing(phd, SLEEP, 12, print_t_name);
 	true_sleep(phd->info->rules[T_SLEEP]);
 	sem_wrap_writing(phd, THINK, 12, print_t_name);

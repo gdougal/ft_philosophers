@@ -43,7 +43,7 @@ int		main(int argc, char **argv)
 	status = 0;
 	status = philo_pars(argv, argc, &info);
 	if (!status)
-		if (!(philo = (t_philo *)malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
+		if (!(philo = malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
 			status = 5;
 	if (!status)
 	{

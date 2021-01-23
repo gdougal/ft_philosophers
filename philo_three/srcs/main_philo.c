@@ -44,7 +44,7 @@ int		main(int argc, char **argv)
 	if (!status)
 	{
 		pre_init(&philo, &info);
-		if (thread_start(philo, &info))
+		if (forks_start(philo, &info))
 			status = 6;
 	}
 	clear_space(status, &info, &philo);

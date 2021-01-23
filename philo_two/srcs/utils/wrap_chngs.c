@@ -12,7 +12,7 @@
 
 #include "philo_two.h"
 
-void	sem_wrap_chng(t_philo *phd,sem_t *type, void f_chng())
+void	sem_wrap_chng(t_philo *phd, sem_t *type, void f_chng())
 {
 	sem_wait(type);
 	f_chng(phd);

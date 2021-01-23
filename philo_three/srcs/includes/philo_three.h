@@ -26,8 +26,6 @@ typedef enum
 	T_EAT = 2,
 	T_SLEEP = 3,
 	T_MST_E = 4,
-	LEFT = 0,
-	RIGHT = 1
 }	t_indexs;
 
 #define EAT		"is eating\n"
@@ -43,9 +41,10 @@ typedef struct		s_info
 	sem_t			*forks;
 	sem_t			*waiter;
 	sem_t			*write;
-	sem_t			*l_check;
 	sem_t			*last_eat;
 	sem_t			*detah;
+	sem_t			*start;
+	sem_t			*must_eat;
 }					t_info;
 
 typedef struct		s_philo
@@ -57,12 +56,11 @@ typedef struct		s_philo
 	ssize_t			last_eat;
 	pthread_t		th;
 	t_info			*info;
-	pid_t			proc;
 }					t_philo;
 
 int					philo_pars(char **argv, int argc, t_info *info);
 int					ft_atoi(const char *nptr);
-int					thread_start(t_philo *philo, t_info *info);
+int					forks_start(t_philo *philo, t_info *info);
 void				lifecycle(t_philo *phd);
 ssize_t				time_start(void);
 ssize_t				current_time(t_philo *philo);
@@ -76,7 +74,6 @@ void				forks_take(t_philo *phd);
 void				forks_drop(t_philo *phd);
 void				every_day_the_same(t_philo *phd);
 void				print_t_name(t_philo *phd, char *str, int n);
-void				sem_wrap_chng(t_philo *phd, sem_t *type, void f_chng());
 void				sem_wrap_writing(t_philo *phd, char * str, int n, void f_write());
 void				clear_space(int status, t_info *info, t_philo **phd);
 void				semaphore_close(t_info *info);

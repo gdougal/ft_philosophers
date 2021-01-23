@@ -26,8 +26,6 @@ typedef enum
 	T_EAT = 2,
 	T_SLEEP = 3,
 	T_MST_E = 4,
-	LEFT = 0,
-	RIGHT = 1
 }	t_indexs;
 
 #define EAT		"is eating\n"

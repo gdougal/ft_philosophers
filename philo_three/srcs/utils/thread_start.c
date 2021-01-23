@@ -12,10 +12,32 @@
 
 #include "philo_three.h"
 #include <unistd.h>
-#include <stdio.h>
 #include <signal.h>
 
-int		thread_start(t_philo *phd, t_info *info)
+
+static void	forks_close(t_info *info, pid_t pid, pid_t *processes, int i)
+{
+	int	k;
+
+	k = 0;
+	if (pid)
+	{
+		if (pid < 0)
+		{
+			write(1, "Forks lol\n", 10);
+			sem_post(info->start);
+		}
+		else if (pid > 0)
+			sem_wait(info->detah);
+		while (k < i)
+		{
+			kill(processes[k], SIGKILL);
+			k++;
+		}
+	}
+}
+
+int			forks_start(t_philo *phd, t_info *info)
 {
 	int	i;
 	pid_t	pid;
@@ -30,25 +52,18 @@ int		thread_start(t_philo *phd, t_info *info)
 		pid = fork();
 		if (pid)
 		{
+			if (pid < 0)
+				break ;
 			processes[i] = pid;
-			phd[i].proc = pid;
 		}
 		else
+		{
+			sem_wait(info->start);
 			lifecycle(&phd[i]);
+		}
 		i++;
 	}
-	i = 0;
-	if (pid)
-	{
-		sem_wait(phd->info->detah);
-		while (i < info->rules[SUM_PH])
-		{
-			kill(processes[i], SIGKILL);
-			i++;
-		}
-	}
-	wait(NULL);
-	i = 0;
+	forks_close(info, pid, processes, i);
 	semaphore_close(info);
 	return (0);
 }

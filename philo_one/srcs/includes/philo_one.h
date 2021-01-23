@@ -13,9 +13,9 @@
 #ifndef PHILO_ONE_H
 # define PHILO_ONE_H
 
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
+# include <stdlib.h>
+# include <string.h>
+# include <pthread.h>
 
 typedef enum
 {
@@ -28,11 +28,11 @@ typedef enum
 	RIGHT = 1
 }	t_indexs;
 
-#define EAT		"is eating\n"
-#define SLEEP	"is sleeping\n"
-#define THINK	"is thinking\n"
-#define DEAD	"is dead\n"
-#define TAKE_F	"has taken a fork\n"
+# define EAT		"is eating\n"
+# define SLEEP	"is sleeping\n"
+# define THINK	"is thinking\n"
+# define DEAD	"is dead\n"
+# define TAKE_F	"has taken a fork\n"
 
 typedef struct		s_info
 {
@@ -78,7 +78,9 @@ void				forks_take(t_philo *phd, int hand_1, int hand_2);
 void				forks_drop(t_philo *phd, int hand_1, int hand_2);
 void				every_day_the_same(t_philo *phd);
 void				print_t_name(t_philo *phd, char *str, int n);
-void				mutex_wrap_chng(t_philo *phd, pthread_mutex_t *type, void f_chng());
-void				mutex_wrap_writing(t_philo *phd, char * str, int n, void f_write());
+void				mutex_wrap_chng(t_philo *phd,
+						pthread_mutex_t *type, void f_chng());
+void				mutex_wrap_writing(t_philo *phd,
+						char *str, int n, void f_write());
 void				clear_space(int status, t_info *info, t_philo **phd);
 #endif

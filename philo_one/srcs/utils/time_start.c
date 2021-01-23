@@ -13,10 +13,11 @@
 #include "philo_one.h"
 #include <sys/time.h>
 
-ssize_t 	time_start(void)
+ssize_t				time_start(void)
 {
-	ssize_t	s_time;
+	ssize_t			s_time;
 	struct timeval	t_start;
+
 	gettimeofday(&t_start, NULL);
 	s_time = (t_start.tv_sec * 1000 + t_start.tv_usec / 1000);
 	return (s_time);

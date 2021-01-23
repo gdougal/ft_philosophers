@@ -12,9 +12,10 @@
 
 #include "philo_one.h"
 
-int start_status(t_info *info)
+int		start_status(t_info *info)
 {
 	int	status;
+
 	pthread_mutex_lock(&info->chng);
 	status = info->start;
 	pthread_mutex_unlock(&info->chng);

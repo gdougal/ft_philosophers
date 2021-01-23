@@ -22,9 +22,9 @@ void	life_check(t_philo *phd)
 		sem_wait(phd->info->last_eat);
 		delta = time_start() - phd->last_eat;
 		sem_post(phd->info->last_eat);
-		if (delta >= phd->info->rules[T_DIE] && phd->must_eat)
-			sem_wrap_chng(phd, phd->info->l_check, &dead_status);
-		if (phd->info->amdead)
+		if (delta >= phd->info->rules[T_DIE] && phd->must_eat > 0)
+			dead_status(phd);
+		if (phd->info->amdead || !phd->must_eat)
 			return ;
 		usleep(1);
 	}

@@ -21,7 +21,8 @@ int		thread_start(t_philo **philo, t_info *info)
 	while (i < info->rules[SUM_PH])
 	{
 		sem_wait(info->start);
-		if (pthread_create(&(*philo)[i].th, NULL, (void *)lifecycle, &(*philo)[i]))
+		if (pthread_create(&(*philo)[i].th,
+					NULL, (void *)lifecycle, &(*philo)[i]))
 			return (1);
 		i++;
 	}

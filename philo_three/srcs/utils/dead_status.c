@@ -15,7 +15,7 @@
 void	dead_status(t_philo *phd)
 {
 	phd->info->amdead = phd->name;
-	sem_wrap_writing(phd, DEAD, 8, print_dead);
 	sem_wait(phd->info->write);
+	print_dead(phd, DEAD, 8);
 	sem_post(phd->info->detah);
 }

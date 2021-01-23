@@ -18,15 +18,17 @@ int				semaphore_init(t_info *info)
 	sem_unlink("/forks");
 	sem_unlink("/waiter");
 	sem_unlink("/write");
-	sem_unlink("/l_check");
 	sem_unlink("/last_eat");
 	sem_unlink("/death");
+	sem_unlink("/start");
+	sem_unlink("/must_eat");
 	info->forks = sem_open("/forks", O_CREAT, S_IRWXU, info->rules[SUM_PH]);
 	info->waiter = sem_open("/waiter", O_CREAT, S_IRWXU, 1);
 	info->write = sem_open("/write", O_CREAT, S_IRWXU, 1);
-	info->l_check = sem_open("/l_check", O_CREAT, S_IRWXU, 1);
 	info->last_eat = sem_open("/last_eat", O_CREAT, S_IRWXU, 1);
 	info->detah = sem_open("/death", O_CREAT, S_IRWXU, 1);
+	info->start = sem_open("/start", O_CREAT, S_IRWXU, info->rules[SUM_PH]);
+	info->start = sem_open("/start", O_CREAT, S_IRWXU, (-1) * (info->rules[SUM_PH] - 1));
 	return (0);
 }
 

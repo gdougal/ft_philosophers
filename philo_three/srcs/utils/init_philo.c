@@ -14,8 +14,6 @@
 
 void	init_philo(t_philo *phd)
 {
-	sem_wait(phd->info->last_eat);
 	phd->t_start = time_start();
-	sem_post(phd->info->last_eat);
 	phd->last_eat = phd->t_start;
 }
