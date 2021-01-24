@@ -12,7 +12,7 @@
 
 #include "philo_three.h"
 
-void	every_day_the_same(t_philo *phd)
+int		every_day_the_same(t_philo *phd)
 {
 	forks_take(phd);
 	sem_wait(phd->info->last_eat);
@@ -25,9 +25,10 @@ void	every_day_the_same(t_philo *phd)
 	if (!phd->must_eat)
 	{
 		sem_post(phd->info->must_eat);
-		return ;
+		return (1);
 	}
 	sem_wrap_writing(phd, SLEEP, 12, print_t_name);
 	true_sleep(phd->info->rules[T_SLEEP]);
 	sem_wrap_writing(phd, THINK, 12, print_t_name);
+	return (0);
 }

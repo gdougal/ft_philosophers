@@ -22,14 +22,15 @@ static int	semaphore_init(t_info *info)
 	sem_unlink("/death");
 	sem_unlink("/start");
 	sem_unlink("/must_eat");
+	sem_unlink("/first");
 	info->forks = sem_open("/forks", O_CREAT, S_IRWXU, info->rules[SUM_PH]);
 	info->waiter = sem_open("/waiter", O_CREAT, S_IRWXU, 1);
 	info->write = sem_open("/write", O_CREAT, S_IRWXU, 1);
 	info->last_eat = sem_open("/last_eat", O_CREAT, S_IRWXU, 1);
-	info->detah = sem_open("/death", O_CREAT, S_IRWXU, 1);
-	info->start = sem_open("/start", O_CREAT, S_IRWXU, info->rules[SUM_PH]);
-	info->start = sem_open("/start", O_CREAT, S_IRWXU,
-						(-1) * (info->rules[SUM_PH] - 1));
+	info->detah = sem_open("/death", O_CREAT, S_IRWXU, 0);
+	info->start = sem_open("/start", O_CREAT, S_IRWXU, 0);
+	info->must_eat = sem_open("/must_eat", O_CREAT, S_IRWXU, 0);
+	info->first = sem_open("/first", O_CREAT, S_IRWXU, 1);
 	return (0);
 }
 

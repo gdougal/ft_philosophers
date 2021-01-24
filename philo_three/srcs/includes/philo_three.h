@@ -44,6 +44,7 @@ typedef struct		s_info
 	sem_t			*detah;
 	sem_t			*start;
 	sem_t			*must_eat;
+	sem_t			*first;
 }					t_info;
 
 typedef struct		s_philo
@@ -72,7 +73,7 @@ void				init_philo(t_philo *phd);
 void				ft_putnbr_light(unsigned int n);
 void				forks_take(t_philo *phd);
 void				forks_drop(t_philo *phd);
-void				every_day_the_same(t_philo *phd);
+int					every_day_the_same(t_philo *phd);
 void				print_t_name(t_philo *phd, char *str, int n);
 void				sem_wrap_writing(t_philo *phd,
 						char *str, int n, void f_write());

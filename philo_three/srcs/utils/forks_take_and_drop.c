@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo_three.h"
-#include <pthread.h>
 
 void	forks_take(t_philo *phd)
 {

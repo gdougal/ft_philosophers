@@ -24,7 +24,7 @@ void	life_check(t_philo *phd)
 		sem_post(phd->info->last_eat);
 		if (delta >= phd->info->rules[T_DIE] && phd->must_eat > 0)
 			dead_status(phd);
-		if (phd->info->amdead || !phd->must_eat)
+		if (phd->info->amdead || phd->must_eat <= 0)
 			return ;
 		usleep(1);
 	}

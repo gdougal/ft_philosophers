@@ -16,7 +16,9 @@
 
 void	lifecycle(t_philo *phd)
 {
-	sem_post(phd->info->start);
+	int	i;
+
+	i = phd->info->rules[SUM_PH];
 	init_philo(phd);
 	if (pthread_create(&phd->th, NULL, (void *)life_check, phd))
 	{
@@ -29,9 +31,12 @@ void	lifecycle(t_philo *phd)
 		pthread_join(phd->th, 0);
 		return ;
 	}
-	while (phd->must_eat)
-		every_day_the_same(phd);
-	sem_wait(phd->info->must_eat);
+	if (phd->must_eat != 0)
+		while (!every_day_the_same(phd))
+			;
+	sem_wait(phd->info->first);
+	while (--i)
+		sem_wait(phd->info->must_eat);
 	sem_post(phd->info->detah);
-	sem_wait(phd->info->write);
+	exit(0);
 }

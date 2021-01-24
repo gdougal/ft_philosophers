@@ -39,14 +39,17 @@ int			main(int argc, char **argv)
 
 	status = philo_pars(argv, argc, &info);
 	if (!status)
-		if (!(philo = malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
+		if (!(philo = malloc(
+				(info.rules[SUM_PH]) * sizeof(t_philo))))
 			status = 4;
 	if (!status)
 		pre_init(&philo, &info);
-	if (!status && !(processes = malloc(sizeof(pid_t) * info.rules[SUM_PH])))
+	if (!status && !(processes =
+			malloc(sizeof(pid_t) * info.rules[SUM_PH])))
 		status = 5;
 	if (!status)
 		status = forks_start(philo, &info, &processes);
+	semaphore_close(&info);
 	clear_space(status, &philo, &processes);
 	exit(status);
 }
