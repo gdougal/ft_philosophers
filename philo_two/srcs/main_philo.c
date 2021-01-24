@@ -12,7 +12,7 @@
 
 #include "philo_two.h"
 
-void	pre_init(t_philo **phd, t_info *info)
+static void	pre_init(t_philo **phd, t_info *info)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	pre_init(t_philo **phd, t_info *info)
 	}
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_philo			*philo;
 	t_info			info;
@@ -39,7 +39,7 @@ int		main(int argc, char **argv)
 	status = 0;
 	status = philo_pars(argv, argc, &info);
 	if (!status)
-		if (!(philo = (t_philo *)malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
+		if (!(philo = malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
 			status = 5;
 	if (!status)
 	{

@@ -18,7 +18,6 @@ void	every_day_the_same(t_philo *phd)
 	sem_wait(phd->info->last_eat);
 	phd->last_eat = time_start();
 	sem_post(phd->info->last_eat);
-
 	sem_wrap_writing(phd, EAT, 10, print_t_name);
 	phd->must_eat--;
 	true_sleep(phd->info->rules[T_EAT]);

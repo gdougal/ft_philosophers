@@ -12,7 +12,7 @@
 
 #include "philo_three.h"
 
-void	pre_init(t_philo **phd, t_info *info)
+static void	pre_init(t_philo **phd, t_info *info)
 {
 	int	i;
 
@@ -30,23 +30,23 @@ void	pre_init(t_philo **phd, t_info *info)
 	}
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_philo			*philo;
 	t_info			info;
 	int				status;
+	pid_t			*processes;
 
-	status = 0;
 	status = philo_pars(argv, argc, &info);
 	if (!status)
-		if (!(philo = (t_philo *)malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
-			status = 5;
+		if (!(philo = malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
+			status = 4;
 	if (!status)
-	{
 		pre_init(&philo, &info);
-		if (forks_start(philo, &info))
-			status = 6;
-	}
-	clear_space(status, &info, &philo);
+	if (!status && !(processes = malloc(sizeof(pid_t) * info.rules[SUM_PH])))
+		status = 5;
+	if (!status)
+		status = forks_start(philo, &info, &processes);
+	clear_space(status, &info, &philo, &processes);
 	return (status);
 }

@@ -13,10 +13,12 @@
 #include "philo_two.h"
 #include <sys/time.h>
 
-ssize_t		current_time(t_philo *philo)
+ssize_t				current_time(t_philo *philo)
 {
 	struct timeval	t_cur;
+
 	gettimeofday(&t_cur, NULL);
-	philo->curent_time = (ssize_t)(t_cur.tv_sec * 1000 + t_cur.tv_usec / 1000) - philo->t_start;
+	philo->curent_time = (ssize_t)(t_cur.tv_sec * 1000
+			+ t_cur.tv_usec / 1000) - philo->t_start;
 	return (philo->curent_time);
 }

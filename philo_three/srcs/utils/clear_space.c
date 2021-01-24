@@ -30,7 +30,7 @@ void	semaphore_close(t_info *info)
 	sem_unlink("/must_eat");
 }
 
-void	clear_space(int status, t_info *info, t_philo **phd)
+void	clear_space(int status, t_info *info, t_philo **phd, pid_t **processes)
 {
 	if (status == 1 || status == 2 || status == 3)
 		return ;

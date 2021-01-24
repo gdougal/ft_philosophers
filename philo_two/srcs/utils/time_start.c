@@ -13,9 +13,9 @@
 #include "philo_two.h"
 #include <sys/time.h>
 
-ssize_t	time_start(void)
+ssize_t				time_start(void)
 {
-	ssize_t	s_time;
+	ssize_t			s_time;
 	struct timeval	t_start;
 
 	gettimeofday(&t_start, NULL);

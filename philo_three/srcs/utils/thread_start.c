@@ -14,10 +14,9 @@
 #include <unistd.h>
 #include <signal.h>
 
-
-static void	forks_close(t_info *info, pid_t pid, pid_t *processes, int i)
+static int	forks_close(t_info *info, pid_t pid, pid_t *processes, int i)
 {
-	int	k;
+	int		k;
 
 	k = 0;
 	if (pid)
@@ -25,7 +24,7 @@ static void	forks_close(t_info *info, pid_t pid, pid_t *processes, int i)
 		if (pid < 0)
 		{
 			write(1, "Forks lol\n", 10);
-			sem_post(info->start);
+			sem_post(info->detah);
 		}
 		else if (pid > 0)
 			sem_wait(info->detah);
@@ -35,17 +34,16 @@ static void	forks_close(t_info *info, pid_t pid, pid_t *processes, int i)
 			k++;
 		}
 	}
+	semaphore_close(info);
+	return (k);
 }
 
-int			forks_start(t_philo *phd, t_info *info)
+int			forks_start(t_philo *phd, t_info *info, pid_t **processes)
 {
-	int	i;
+	int		i;
 	pid_t	pid;
-	pid_t	*processes;
-
 
 	i = 0;
-	processes = malloc(sizeof(pid_t) * info->rules[SUM_PH]);
 	sem_wait(phd->info->detah);
 	while (i < info->rules[SUM_PH])
 	{
@@ -54,7 +52,7 @@ int			forks_start(t_philo *phd, t_info *info)
 		{
 			if (pid < 0)
 				break ;
-			processes[i] = pid;
+			(*processes)[i] = pid;
 		}
 		else
 		{
@@ -63,7 +61,7 @@ int			forks_start(t_philo *phd, t_info *info)
 		}
 		i++;
 	}
-	forks_close(info, pid, processes, i);
-	semaphore_close(info);
+	if (forks_close(info, pid, *processes, i) != i)
+		return (6);
 	return (0);
 }

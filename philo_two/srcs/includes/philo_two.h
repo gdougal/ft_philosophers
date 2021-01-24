@@ -13,11 +13,10 @@
 #ifndef PHILO_TWO_H
 # define PHILO_TWO_H
 
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
-#include <semaphore.h>
-
+# include <stdlib.h>
+# include <string.h>
+# include <pthread.h>
+# include <semaphore.h>
 
 typedef enum
 {
@@ -28,11 +27,11 @@ typedef enum
 	T_MST_E = 4,
 }	t_indexs;
 
-#define EAT		"is eating\n"
-#define SLEEP	"is sleeping\n"
-#define THINK	"is thinking\n"
-#define DEAD	"is dead\n"
-#define TAKE_F	"has taken a fork\n"
+# define EAT		"is eating\n"
+# define SLEEP	"is sleeping\n"
+# define THINK	"is thinking\n"
+# define DEAD	"is dead\n"
+# define TAKE_F	"has taken a fork\n"
 
 typedef struct		s_info
 {
@@ -75,7 +74,8 @@ void				forks_drop(t_philo *phd);
 void				every_day_the_same(t_philo *phd);
 void				print_t_name(t_philo *phd, char *str, int n);
 void				sem_wrap_chng(t_philo *phd, sem_t *type, void f_chng());
-void				sem_wrap_writing(t_philo *phd, char * str, int n, void f_write());
+void				sem_wrap_writing(t_philo *phd,
+						char *str, int n, void f_write());
 void				clear_space(int status, t_info *info, t_philo **phd);
 void				semaphore_close(t_info *info);
 #endif

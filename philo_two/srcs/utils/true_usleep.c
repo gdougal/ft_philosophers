@@ -13,7 +13,7 @@
 #include "philo_two.h"
 #include <unistd.h>
 
-void true_sleep(int wait)
+void		true_sleep(int wait)
 {
 	ssize_t	start;
 

@@ -13,11 +13,10 @@
 #ifndef PHILO_THREE_H
 # define PHILO_THREE_H
 
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
-#include <semaphore.h>
-
+# include <stdlib.h>
+# include <string.h>
+# include <pthread.h>
+# include <semaphore.h>
 
 typedef enum
 {
@@ -28,11 +27,11 @@ typedef enum
 	T_MST_E = 4,
 }	t_indexs;
 
-#define EAT		"is eating\n"
-#define SLEEP	"is sleeping\n"
-#define THINK	"is thinking\n"
-#define DEAD	"is dead\n"
-#define TAKE_F	"has taken a fork\n"
+# define EAT		"is eating\n"
+# define SLEEP	"is sleeping\n"
+# define THINK	"is thinking\n"
+# define DEAD	"is dead\n"
+# define TAKE_F	"has taken a fork\n"
 
 typedef struct		s_info
 {
@@ -60,7 +59,8 @@ typedef struct		s_philo
 
 int					philo_pars(char **argv, int argc, t_info *info);
 int					ft_atoi(const char *nptr);
-int					forks_start(t_philo *philo, t_info *info);
+int					forks_start(t_philo *philo,
+					t_info *info, pid_t **processes);
 void				lifecycle(t_philo *phd);
 ssize_t				time_start(void);
 ssize_t				current_time(t_philo *philo);
@@ -74,7 +74,9 @@ void				forks_take(t_philo *phd);
 void				forks_drop(t_philo *phd);
 void				every_day_the_same(t_philo *phd);
 void				print_t_name(t_philo *phd, char *str, int n);
-void				sem_wrap_writing(t_philo *phd, char * str, int n, void f_write());
-void				clear_space(int status, t_info *info, t_philo **phd);
+void				sem_wrap_writing(t_philo *phd,
+						char *str, int n, void f_write());
+void				clear_space(int status, t_info *info,
+								t_philo **phd, pid_t **processes);
 void				semaphore_close(t_info *info);
 #endif

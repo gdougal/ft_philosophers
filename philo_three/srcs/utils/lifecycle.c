@@ -12,12 +12,18 @@
 
 #include "philo_three.h"
 #include <signal.h>
+#include <unistd.h>
 
 void	lifecycle(t_philo *phd)
 {
 	sem_post(phd->info->start);
 	init_philo(phd);
-	pthread_create(&phd->th, NULL, (void *)life_check, phd);
+	if (pthread_create(&phd->th, NULL, (void *)life_check, phd))
+	{
+		sem_wait(phd->info->write);
+		write(1, "Threads lol\n", 10);
+		sem_post(phd->info->detah);
+	}
 	if (phd->info->amdead)
 	{
 		pthread_join(phd->th, 0);

@@ -12,7 +12,7 @@
 
 #include "philo_two.h"
 
-void	sem_wrap_writing(t_philo *phd, char * str, int n, void f_write())
+void	sem_wrap_writing(t_philo *phd, char *str, int n, void f_write())
 {
 	sem_wait(phd->info->write);
 	f_write(phd, str, n);

@@ -13,9 +13,10 @@
 #include "philo_three.h"
 #include <unistd.h>
 
-void true_sleep(int wait)
+void		true_sleep(int wait)
 {
 	ssize_t	start;
+
 	start = time_start();
 	while (time_start() - start < wait)
 		usleep(1);

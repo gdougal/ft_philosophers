@@ -12,7 +12,7 @@
 
 #include "philo_two.h"
 
-int				semaphore_init(t_info *info)
+static int		semaphore_init(t_info *info)
 {
 	info->amdead = 0;
 	info->d_th = 0;
@@ -53,7 +53,7 @@ int				philo_pars(char **argv, int argc, t_info *info)
 		status = data_mainer(info, argv[i], i - 1);
 	if (status)
 		return (status);
-	if ((status =  semaphore_init(info)))
+	if ((status = semaphore_init(info)))
 		return (status);
 	return (0);
 }

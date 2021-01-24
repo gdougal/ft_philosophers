@@ -12,7 +12,7 @@
 
 #include "philo_three.h"
 
-int				semaphore_init(t_info *info)
+static int	semaphore_init(t_info *info)
 {
 	info->amdead = 0;
 	sem_unlink("/forks");
@@ -28,11 +28,12 @@ int				semaphore_init(t_info *info)
 	info->last_eat = sem_open("/last_eat", O_CREAT, S_IRWXU, 1);
 	info->detah = sem_open("/death", O_CREAT, S_IRWXU, 1);
 	info->start = sem_open("/start", O_CREAT, S_IRWXU, info->rules[SUM_PH]);
-	info->start = sem_open("/start", O_CREAT, S_IRWXU, (-1) * (info->rules[SUM_PH] - 1));
+	info->start = sem_open("/start", O_CREAT, S_IRWXU,
+						(-1) * (info->rules[SUM_PH] - 1));
 	return (0);
 }
 
-static int		data_mainer(t_info *info, char *argv, int i)
+static int	data_mainer(t_info *info, char *argv, int i)
 {
 	info->rules[i] = ft_atoi(argv);
 	if (info->rules[i] < 1)
@@ -40,10 +41,10 @@ static int		data_mainer(t_info *info, char *argv, int i)
 	return (0);
 }
 
-int				philo_pars(char **argv, int argc, t_info *info)
+int			philo_pars(char **argv, int argc, t_info *info)
 {
-	int	i;
-	int	status;
+	int		i;
+	int		status;
 
 	if (argc < 5 || argc > 6)
 		return (1);
@@ -54,7 +55,7 @@ int				philo_pars(char **argv, int argc, t_info *info)
 		status = data_mainer(info, argv[i], i - 1);
 	if (status)
 		return (status);
-	if ((status =  semaphore_init(info)))
+	if ((status = semaphore_init(info)))
 		return (status);
 	return (0);
 }
