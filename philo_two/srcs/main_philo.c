@@ -25,6 +25,7 @@ static void	pre_init(t_philo **phd, t_info *info)
 		(*phd)[i].curent_time = 0;
 		(*phd)[i].last_eat = 0;
 		(*phd)[i].last_eat = 0;
+		(*phd)[i].th = 0;
 		(*phd)[i].must_eat = (*phd)[i].info->rules[T_MST_E];
 		i++;
 	}
@@ -40,12 +41,12 @@ int			main(int argc, char **argv)
 	status = philo_pars(argv, argc, &info);
 	if (!status)
 		if (!(philo = malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
-			status = 5;
+			status = 3;
 	if (!status)
 	{
 		pre_init(&philo, &info);
 		if (thread_start(&philo, &info))
-			status = 6;
+			status = 4;
 	}
 	clear_space(status, &info, &philo);
 	return (status);

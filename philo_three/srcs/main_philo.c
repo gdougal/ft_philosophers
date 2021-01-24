@@ -47,6 +47,6 @@ int			main(int argc, char **argv)
 		status = 5;
 	if (!status)
 		status = forks_start(philo, &info, &processes);
-	clear_space(status, &info, &philo, &processes);
-	return (status);
+	clear_space(status, &philo, &processes);
+	exit(status);
 }

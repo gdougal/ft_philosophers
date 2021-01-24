@@ -28,12 +28,20 @@ void	semaphore_close(t_info *info)
 	sem_unlink("/start");
 }
 
-void	clear_space(int status, t_info *info, t_philo **phd)
+void	clear_space(int status,  t_info *info, t_philo **phd)
 {
-	if (status == 1 || status == 2 || status == 3)
+	int	i;
+
+	i = 0;
+	if (status == 1 || status == 2)
 		return ;
-	if (status >= 5)
-		free(info->forks);
-	if (status >= 6)
+	if (status >= 3)
 		free(*phd);
+	if (status >= 4)
+		while(i < info->rules[SUM_PH])
+		{
+			if ((*phd)[i].th)
+				pthread_join((*phd)[i].th, NULL);
+			i++;
+		}
 }

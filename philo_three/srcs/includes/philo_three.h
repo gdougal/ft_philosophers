@@ -76,7 +76,6 @@ void				every_day_the_same(t_philo *phd);
 void				print_t_name(t_philo *phd, char *str, int n);
 void				sem_wrap_writing(t_philo *phd,
 						char *str, int n, void f_write());
-void				clear_space(int status, t_info *info,
-								t_philo **phd, pid_t **processes);
+void				clear_space(int status, t_philo **phd, pid_t **processes);
 void				semaphore_close(t_info *info);
 #endif
