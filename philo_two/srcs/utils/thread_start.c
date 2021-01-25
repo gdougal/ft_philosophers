@@ -23,13 +23,15 @@ int		thread_start(t_philo **philo, t_info *info)
 		sem_wait(info->start);
 		if (pthread_create(&(*philo)[i].th,
 					NULL, (void *)lifecycle, &(*philo)[i]))
-			return (1);
+			break ;
 		i++;
 	}
-	if (!info->amdead)
-		if (pthread_create(&info->d_th, NULL, (void *)life_check, philo))
+	if (!info->amdead && i == info->rules[SUM_PH])
+	{
+		if (pthread_create(&info->d_th, NULL, (void *) life_check, philo))
 			return (1);
-	pthread_join(info->d_th, NULL);
+		pthread_join(info->d_th, NULL);
+	}
 	while (i-- >= 0)
 		pthread_join((*philo)[i].th, NULL);
 	semaphore_close(info);

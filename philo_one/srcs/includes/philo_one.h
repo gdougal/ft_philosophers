@@ -6,7 +6,7 @@
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:20:29 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/15 15:20:30 by gdougal          ###   ########.fr       */
+/*   Updated: 2021/01/25 14:58:31 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct		s_philo
 	t_info			*info;
 }					t_philo;
 
-int					philo_pars(char **argv, int argc, t_info *info);
+int					philo_pars(char **argv, t_info *info);
 int					ft_atoi(const char *nptr);
 int					thread_start(t_philo **philo, t_info *info);
 void				lifecycle(t_philo *phd);

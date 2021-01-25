@@ -49,7 +49,6 @@ int			main(int argc, char **argv)
 		status = 5;
 	if (!status)
 		status = forks_start(philo, &info, &processes);
-	semaphore_close(&info);
 	clear_space(status, &philo, &processes);
 	exit(status);
 }

@@ -6,7 +6,7 @@
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:19:25 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/15 15:19:27 by gdougal          ###   ########.fr       */
+/*   Updated: 2021/01/25 15:04:51 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ int		main(int argc, char **argv)
 	t_info			info;
 	int				status;
 
+	if (argc < 5 || argc > 6)
+		return (1);
 	status = 0;
-	status = philo_pars(argv, argc, &info);
+	status = philo_pars(argv, &info);
 	if (!status)
 		if (!(philo = malloc((info.rules[SUM_PH]) * sizeof(t_philo))))
 			status = 5;

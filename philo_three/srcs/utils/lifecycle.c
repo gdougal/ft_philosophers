@@ -6,7 +6,7 @@
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 23:30:45 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/21 23:30:46 by gdougal          ###   ########.fr       */
+/*   Updated: 2021/01/24 22:18:56 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	lifecycle(t_philo *phd)
 		while (!every_day_the_same(phd))
 			;
 	sem_wait(phd->info->first);
-	while (--i)
+	while (i--)
 		sem_wait(phd->info->must_eat);
 	sem_post(phd->info->detah);
 	exit(0);

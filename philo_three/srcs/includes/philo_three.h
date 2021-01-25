@@ -79,4 +79,5 @@ void				sem_wrap_writing(t_philo *phd,
 						char *str, int n, void f_write());
 void				clear_space(int status, t_philo **phd, pid_t **processes);
 void				semaphore_close(t_info *info);
+void				semaphore_unlink(void);
 #endif

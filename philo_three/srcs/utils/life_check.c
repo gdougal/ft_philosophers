@@ -12,6 +12,7 @@
 
 #include "philo_three.h"
 #include <unistd.h>
+#include <stdio.h>
 
 void	life_check(t_philo *phd)
 {
@@ -22,9 +23,9 @@ void	life_check(t_philo *phd)
 		sem_wait(phd->info->last_eat);
 		delta = time_start() - phd->last_eat;
 		sem_post(phd->info->last_eat);
-		if (delta >= phd->info->rules[T_DIE] && phd->must_eat > 0)
+		if (delta >= phd->info->rules[T_DIE])
 			dead_status(phd);
-		if (phd->info->amdead || phd->must_eat <= 0)
+		if (phd->info->amdead || phd->must_eat == 0)
 			return ;
 		usleep(1);
 	}

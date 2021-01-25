@@ -63,5 +63,6 @@ int			forks_start(t_philo *phd, t_info *info, pid_t **processes)
 	}
 	if (forks_close(info, pid, *processes, i) != i)
 		return (6);
+	semaphore_close(info);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gdougal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:14:00 by gdougal           #+#    #+#             */
-/*   Updated: 2021/01/16 14:14:03 by gdougal          ###   ########.fr       */
+/*   Updated: 2021/01/25 15:08:44 by gdougal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,24 @@ int				forks_init(t_info *info)
 static int		data_mainer(t_info *info, char *argv, int i)
 {
 	info->rules[i] = ft_atoi(argv);
-	if (info->rules[0] < 2)
-		return (2);
-	if (info->rules[i] < 1)
+	if (info->rules[i] < 2)
 		return (2);
 	return (0);
 }
 
-int				philo_pars(char **argv, int argc, t_info *info)
+int				philo_pars(char **argv, t_info *info)
 {
 	int	i;
 	int	status;
 
-	if (argc < 5 || argc > 6)
-		return (1);
-	if (argc == 6)
-		info->rules[T_MST_E] = -1;
+	info->rules[T_MST_E] = -1;
 	i = 0;
 	while (argv[++i])
+	{
 		status = data_mainer(info, argv[i], i - 1);
-	if (status)
-		return (status);
+		if (status)
+			return (status);
+	}
 	if ((status = forks_init(info)))
 		return (status);
 	return (0);
